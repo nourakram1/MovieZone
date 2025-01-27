@@ -83,7 +83,7 @@ The app’s primary goal is to provide a seamless experience for movie enthusias
 
 ---
 
-
+![Movie Info Page](MovieInfoPage.png)
 ### Main Pages:
 - **Home Page**: Displays trending, top-rated, upcoming, and popular movies.
 - **Movie Page**: A detailed page for each individual movie with information like cast, release date, overview, etc.
