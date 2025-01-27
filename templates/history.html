@@ -1,0 +1,63 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    History
+{% endblock %}
+
+{% block main %}
+<section style="padding-left:500px; padding-right:500px;">
+
+
+
+    {% if movies %}
+        <section>
+            <h1 class="container-fluid my-5" style="margin-top:30px; text-align:left; font-weight:bold; font-size:45px">
+                {{user_name}}'s History
+                <div>
+                    <form action="/history", method="post">
+                        <input type="hidden" name="clear_history" value="yes">
+                        <button type="submit" class="btn btn-secondary" style="border-radius:25px">Clear History</button>
+                    </form>
+                </div>
+            </h1>
+            <div class="container-fluid my-5">
+                {%for movie in movies%}
+                    <div class="card bg-dark  h-100 border-0 mb-3" style="width: 100%; border-radius: 25px; " >
+                        <div class="row g-0">
+                            <div class="col-md-4">
+                                <form action="/open" method="post">
+                                    <input type="hidden" name="movie_id" value="{{ movie.movie.id }}">
+                                    <input type="image" src="https://image.tmdb.org/t/p/w500/{{movie.movie.poster_path}}" alt="{{movie.movie.title}}" class="card-img-top" style="border-radius: 25px 0px 25px 0px; " />
+                                </form>
+                                <div style="font-size:18px; text-align:center; padding:14px; color:white">
+                                    ⭐{{ movie.movie.vote_average }}, {{ movie.movie.vote_count }} votes
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h5 class="card-title" style="text-align:left; font-weight:bold">
+                                        {{ movie.movie.title }}
+                                    </h5>
+                                    <p class="card-text" style="text-align:left">{{ movie.movie.overview }}</p>
+                                    <p class="card-text" style="text-align:left"><small class="text-muted">
+                                        {{ movie.movie.release_date }} .
+                                        {% for genre in movie.movie.genres %}
+                                        {{genre.name}}/
+                                        {% endfor %} .
+                                        {{ movie.movie.runtime }}minutes</small></p>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <small class="text-muted">{{ movie.date }}</small>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </section>
+    {% else %}
+    <h1 class="container-fluid my-5" style="padding-top:200px; text-align:center; font-weight:bold; font-size:45px">Your History Is Clear.</h1>
+    {% endif %}
+
+</section>
+{% endblock %}

@@ -1,0 +1,213 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Quote
+{% endblock %}
+
+{% block genres_downdrop %}
+
+  {% for genre in gen %}
+  <form action="/genre" method="post">
+      <li>
+          <input type="hidden" name="genre_id" value="{{genre.id}}">
+          <input type="hidden" name="genre_name" value="{{genre.name}}">
+          <input style="background-decoration:none; position:center" value="{{genre.name}}">
+      </li>
+  </form>
+  {% endfor %}
+
+{% endblock %}
+
+{% block main %}
+    <div class="rowN body" style="padding-left:150px; padding-right:150px;">
+        <div>
+            <div class="card text-bg-dark mb-3 leftcolumn" style="width: 53%;">
+                <div class="card-header yellow" style="font-size:32px; font-weight: bold">{{movie.original_title}}</div>
+                <div class="card-body">
+                    <h5 class="card-title yellow" style="font-size:26px">Storyline</h5>
+                    <p class="card-text yellow" style="font-size:20px">{{ movie.overview }} </p>
+                    <h5 class="card-title yellow" style="font-size:26px">Production Companies</h5>
+                    <p class="card-text yellow" style="font-size:20px">
+                        {% for com in movie.production_companies %}
+                            {{ com.name }}.
+                        {% endfor %}
+                    </p>
+                    <h5 class="card-title yellow" style="font-size:26px">Release date</h5>
+                    <p class="card-text yellow" style="font-size:20px">{{ movie.release_date }}</p>
+                    <h5 class="card-title yellow" style="font-size:26px">Runtime</h5>
+                    <p class="card-text yellow" style="font-size:20px">{{ movie.runtime }} min. </p>
+                    <h5 class="card-title yellow" style="font-size:26px">Top Billed Cast</h5>
+                    <p class="card-text yellow" style="font-size:20px">
+
+
+
+                            <div class="container-fluid my-5">
+                                <div class="row">
+                                    <div class="col-12 m-auto">
+                                        <div class="owl-carousel owl-theme">
+                                            {% if actors %}
+                                            {%for actor in actors[0:15]%}
+                                                <div class="item mb-4">
+                                                    <div class="col">
+                                                        <div class="card h-100 border-0 shadow">
+                                                            <form action="/open" method="post">
+                                                                <input type="hidden" name="movie_id" value="{{movie.id}}">
+                                                                <input type="image" src="https://image.tmdb.org/t/p/w500/{{actor.profile_path}}" alt="{{actor.original_name}}" class="card-img-top" />
+                                                                <div class="card-body">
+                                                                    <div class="card-title text-center">
+                                                                        <div><input type="submit" style="font-weight: bold; text-align: justify;" class="link-button" value="{{actor.original_name}}" /></div>
+                                                                        <div>{{actor.character}}</div>
+                                                                    </div>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            {% endfor %}
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                    </p>
+                    {% if writers %}
+                    <h5 class="card-title yellow" style="font-size:26px">Writers</h5>
+                    <p class="card-text yellow" style="font-size:20px">
+                        {% for writer in writers %}
+                            {{writer.original_name}} .
+                        {% endfor %}
+                    </p>
+                    {% endif %}
+                    <h5 class="card-title yellow" style="font-size:26px">Budget</h5>
+                    <p class="card-text yellow" style="font-size:20px">{{ movie.budget }}</p>
+                    <h5 class="card-title yellow" style="font-size:26px">Revenue</h5>
+                    <p class="card-text yellow" style="font-size:20px">{{ movie.revenue }}</p>
+                    <h5 class="card-title yellow" style="font-size:26px">Genres</h5>
+                    <p class="card-text yellow" style="font-size:20px">
+                        {% for genre in movie.genres %}
+                            {{ genre.name }} .
+                        {% endfor %}
+                    </p>
+                    <h5 class="card-title yellow" style="font-size:26px">Production Countries</h5>
+                    <p class="card-text yellow" style="font-size:20px">
+                        {% for country in movie.production_countries %}
+                            {{ country.name }} .
+                        {% endfor %}
+                    </p>
+                    <div class="btn-group" role="group" aria-label="Basic outlined example">
+                        <form method="post" action="/favourites">
+                        {% if new_fav == True %}
+                            <input type="hidden" name="favourite_id" value="{{ movie.id }}">
+                            <input type="hidden" name="case" value="add">
+                            <button type="submit" class="btn btn-outline-secondary" style="margin:10px;">Add to favourite</button>
+                        {% else %}
+                            <input type="hidden" name="favourite_id" value="{{ movie.id }}">
+                            <input type="hidden" name="case" value="delete">
+                            <button type="submit" class="btn btn-outline-secondary" style="margin:10px;">Remove from favourite</button>
+                        {% endif %}
+                    </form>
+                    <form method="post" action="/want_to_watch">
+                        {% if new_watch == True %}
+                            <input type="hidden" name="watch_id" value="{{ movie.id }}">
+                            <input type="hidden" name="case" value="add">
+                            <button type="submit" class="btn btn-outline-secondary" style="margin:10px;">Add to Watchlist</button>
+                        {% else %}
+                            <input type="hidden" name="watch_id" value="{{ movie.id }}">
+                            <input type="hidden" name="case" value="delete">
+                            <button type="submit" class="btn btn-outline-secondary" style="margin:10px;">Remove from Watchlist</button>
+                        {% endif %}
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="rightcolumn" style="width:47%;">
+        <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel" style="width:632px;">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <iframe width="632" height="366" src="https://www.youtube.com/embed/{{ movie.videos.results[0].key }}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen>
+                    </iframe>
+                </div>
+                {%for video in movie.videos.results[1:]%}
+                    <div class="carousel-item">
+                        <iframe width="632" height="366" src="https://www.youtube.com/embed/{{ video.key }}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen>
+                        </iframe>
+                    </div>
+                {% endfor %}
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+        <div>
+            <div id="carouselExampleControls1" class="carousel slide" data-bs-ride="carousel" style="width:632px; height:366px;">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="https://image.tmdb.org/t/p/original/{{ movie.images.backdrops[0].file_path }}" class="d-block " style="width:632px; height:366px;" alt="Oppenhimer">
+                    </div>
+                    {% for image in movie.images.backdrops[1:] %}
+                        <div class="carousel-item">
+                            <img src="https://image.tmdb.org/t/p/original/{{ image.file_path }}" class="d-block " style="width:632px; height:366px;" alt="Oppenhimer">
+                        </div>
+                    {% endfor %}
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls1" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls1" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+            {% if director %}
+                <div class="card h-100 border-1" style="width:250px;">
+                    <form action="/open" method="post">
+                        <input type="hidden" name="director_id" value="{{director.id}}">
+                        <input type="image" src="https://image.tmdb.org/t/p/w500/{{director.profile_path}}" alt="{{director.original_name}}" class="card-img-top" />
+                        <div class="card-body">
+                            <div class="card-title text-center">
+                                <div><input type="submit" style="font-weight: bold; text-align: justify;" class="link-button" value="{{director.original_name}}" /></div>
+                                <div>Direrctor</div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    </div>
+
+    <script src="/static/js/bootstrap.js"></script>
+    <script src="/static/js/myjava.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js" integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw==" crossorigin="anonymous"></script>
+    <script>
+        $('.owl-carousel').owlCarousel({
+            loop: false,
+            margin: 15,
+            nav: false,
+            responsive: {
+                0: {
+                    items: 1
+                },
+
+                700: {
+                    items: 2
+                },
+
+                1000: {
+                    items: 3
+                }
+            }
+        })
+    </script>
+    </body>
+{% endblock %}

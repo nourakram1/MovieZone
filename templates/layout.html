@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+    <head>
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="initial-scale=1, width=device-width">
+
+        <!-- http://getbootstrap.com/docs/5.1/ -->
+        <link href="/static/css/bootstrap.css" rel="stylesheet">
+
+        <!-- https://favicon.io/emoji-favicons/money-bag/ -->
+        <link href="/static/moviezone_logo.jpg" rel="icon">
+
+        <link href="/static/styles.css" rel="stylesheet">
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" integrity="sha512-tS3S5qG0BlhnQROyJXvNjeEM4UpMXHrQfTGmbQ1gKmelCxlSEBUaxhRBj/EFTzpbP4RVSrpEikbmdJobCvhE3g==" crossorigin="anonymous" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css" integrity="sha512-sMXtMNL1zRzolHYKEujM2AqCLUR9F2C4/05cdbxjjLSRvMQIciEPCQZo++nk7go3BtSuK9kfa/s+a4f4i5pLkw==" crossorigin="anonymous" />
+
+        <title>Moviezone: {% block title %}{% endblock %}</title>
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+            * {
+                font-family: 'Poppins', sans-serif;
+            }
+
+            img {
+                height: 280px;
+            }
+
+            body {
+                background: hsl(0, 0, 94%);
+            }
+
+            .item img {
+                height: 380px;
+            }
+        </style>
+
+    </head>
+
+    <body style="background:black; color:white">
+        <nav class="  navbar navbar-expand-md navbar-dark bg-dark sticky-top">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="/"><span class="navbar-brand mb-0 h1"><span class="blue">M</span><span class="red">o</span><span class="yellow">v</span><span class="green">i</span><span class="red">e</span><span class="blue">z</span><span class="red">o</span><span class="yellow">n</span><span class="green">e</span></span></a>
+                <button aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-bs-target="#navbar" data-bs-toggle="collapse" type="button">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbar">
+                    {% if session["user_id"] %}
+                        <ul class="navbar-nav me-auto mt-2">
+                            <li class="nav-item"><a class="nav-link" href="/favourites">Favourites</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/want_to_watch">Watchlist</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/history">History</a></li>
+                            {% if gen %}
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="/genre" role="button" data-bs-toggle="dropdown" aria-expanded="true">
+                                    Genres
+                                </a>
+                                <ul class="dropdown-menu">
+                                    {% for genre in gen %}
+                                        <li>
+                                          <form action="/genre" method="post">
+                                            <input type="hidden" name="genre_id" value="{{genre.id}}">
+                                            <input type="hidden" name="genre_name" value="{{genre.name}}">
+                                            <input type="submit" class="dropdown-item" value="{{genre.name}}">
+                                          </form>
+                                        </li>
+                                    {% endfor %}
+                                  </ul>
+                            </li>
+                            {% endif %}
+                        </ul>
+
+                        <ul class="navbar-nav ms-auto mt-2">
+                            {% if index %}
+                            <li>
+                                <form action="/search" method="post" class="d-flex" role="search">
+                                    <input type="text" class="form-control" placeholder="Movie name" aria-label="Movie name" aria-describedby="button-addon2" style="border-radius:50px 0px 0px 50px" name="movie_name" autocomplete="off">
+                                    <button class="btn btn-light" type="button" id="button-addon2" style="border-radius:0px 50px 50px 0px">search</button>
+
+                                </form>
+                            </li>
+                            {% endif %}
+                            <li class="nav-item"><a class="nav-link" href="/logout">Log Out</a></li>
+                        </ul>
+
+                    {% else %}
+                        <ul class="navbar-nav ms-auto mt-2">
+                            <li class="nav-item"><a class="nav-link" href="/register">Register</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/login">Log In</a></li>
+                        </ul>
+                    {% endif %}
+                </div>
+            </div>
+        </nav>
+
+        {% if get_flashed_messages() %}
+            <header>
+                <div class="alert alert-primary mb-0 text-center" role="alert">
+                    {{ get_flashed_messages() | join(" ") }}
+                </div>
+            </header>
+        {% endif %}
+
+        <main class="container-{breakpoint} text-center">
+            {% block main %}{% endblock %}
+        </main>
+
+        <footer class="mb-5 small text-center text-muted" style="padding:30px">
+            Data provided by <a href="https://www.themoviedb.org/?language=en-US">TMDB</a>
+        </footer>
+        <script src="/static/js/bootstrap.js"></script>
+        <script src="/static/js/myjava.js"></script>
+    </body>
+
+</html>

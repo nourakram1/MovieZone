@@ -1,0 +1,183 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Index
+{% endblock %}
+
+
+{% block main %}
+<section>
+<h2 style="text-align:left;padding-bottom:1em; padding-left:1em;">Trending</h2>
+<div class="container-fluid my-5">
+  <div class="row">
+      <div class="col-12 m-auto">
+          <div class="owl-carousel owl-theme">
+            {%for movie in movies%}
+              <div class="item mb-4">
+                <div class="col">
+                  <div class="card h-100 border-0 shadow" style="background:#90cea1">
+                    <form action="/open" method="post">
+                      <input type="hidden" name="movie_id" value="{{movie.id}}">
+                      <input type="image" src="https://image.tmdb.org/t/p/w500/{{movie.poster_path}}" alt="{{movie.original_title}}" class="card-img-top" />
+                        <div class="card-body" >
+                            <div class="card-title text-center">
+                               <div><input type="submit" class="link-button" value="{{movie.original_title}}"/></div>
+                            </div>
+                        </div>
+                      </form>
+                  </div>
+                </div>
+                </div>
+                {% endfor %}
+          </div>
+      </div>
+  </div>
+</div>
+</section>
+
+<section>
+  <h2 style="text-align:left;padding-bottom:1em; padding-left:1em;">Playing Now</h2>
+  <div class="container-fluid my-5">
+    <div class="row">
+        <div class="col-12 m-auto">
+            <div class="owl-carousel owl-theme">
+              {%for movie in movies1%}
+                <div class="item mb-4">
+                  <div class="col">
+                    <div class="card h-100 border-0 shadow" style="background:#90cea1">
+                      <form action="/open" method="post">
+                        <input type="hidden" name="movie_id" value="{{movie.id}}">
+                        <input type="image" src="https://image.tmdb.org/t/p/w500/{{movie.poster_path}}" alt="{{movie.original_title}}" class="card-img-top" />
+                          <div class="card-body" >
+                              <div class="card-title text-center">
+                                <div><input type="submit" class="link-button" value="{{movie.original_title}}"/></div>
+                              </div>
+                          </div>
+                        </form>
+                    </div>
+                  </div>
+                  </div>
+                  {% endfor %}
+            </div>
+        </div>
+    </div>
+  </div>
+  </section>
+
+
+  <section>
+    <h2 style="text-align:left;padding-bottom:1em; padding-left:1em;">Top Rated</h2>
+    <div class="container-fluid my-5">
+      <div class="row">
+          <div class="col-12 m-auto">
+              <div class="owl-carousel owl-theme">
+                {%for movie in movies2%}
+                  <div class="item mb-4">
+                    <div class="col">
+                      <div class="card h-100 border-0 shadow" style="background:#90cea1">
+                        <form action="/open" method="post">
+                          <input type="hidden" name="movie_id" value="{{movie.id}}">
+                          <input type="image" src="https://image.tmdb.org/t/p/w500/{{movie.poster_path}}" alt="{{movie.original_title}}" class="card-img-top" />
+                            <div class="card-body" >
+                                <div class="card-title text-center">
+                                  <div><input type="submit" class="link-button" value="{{movie.original_title}}"/></div>
+                                </div>
+                            </div>
+                          </form>
+                      </div>
+                    </div>
+                    </div>
+                    {% endfor %}
+              </div>
+          </div>
+      </div>
+    </div>
+    </section>
+
+
+    <section>
+      <h2 style="text-align:left;padding-bottom:1em; padding-left:1em;">Upcoming</h2>
+      <div class="container-fluid my-5">
+        <div class="row">
+            <div class="col-12 m-auto">
+                <div class="owl-carousel owl-theme">
+                  {%for movie in movies3%}
+                    <div class="item mb-4">
+                      <div class="col">
+                        <div class="card h-100 border-0 shadow" style="background:#90cea1">
+                          <form action="/open" method="post">
+                            <input type="hidden" name="movie_id" value="{{movie.id}}">
+                            <input type="image" src="https://image.tmdb.org/t/p/w500/{{movie.poster_path}}" alt="{{movie.original_title}}" class="card-img-top" />
+                              <div class="card-body" >
+                                  <div class="card-title text-center">
+                                    <div><input type="submit" class="link-button" value="{{movie.original_title}}"/></div>
+                                  </div>
+                              </div>
+                            </form>
+                        </div>
+                      </div>
+                      </div>
+                      {% endfor %}
+                </div>
+            </div>
+        </div>
+      </div>
+      </section>
+
+
+      <section>
+        <h2 style="text-align:left;padding-bottom:1em; padding-left:1em;">Popular</h2>
+        <div class="container-fluid my-5">
+          <div class="row">
+              <div class="col-12 m-auto">
+                  <div class="owl-carousel owl-theme">
+                    {%for movie in movies4%}
+                      <div class="item mb-4">
+                        <div class="col">
+                          <div class="card h-100 border-0 shadow" style="background:#90cea1">
+                            <form action="/open" method="post">
+                              <input type="hidden" name="movie_id" value="{{movie.id}}">
+                              <input type="image" src="https://image.tmdb.org/t/p/w500/{{movie.poster_path}}" alt="{{movie.original_title}}" class="card-img-top" />
+                                <div class="card-body" >
+                                    <div class="card-title text-center">
+                                      <div><input type="submit" class="link-button" value="{{movie.original_title}}"/></div>
+                                    </div>
+                                </div>
+                              </form>
+                          </div>
+                        </div>
+                        </div>
+                        {% endfor %}
+                  </div>
+              </div>
+          </div>
+        </div>
+        </section>
+
+
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"
+      integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw=="
+      crossorigin="anonymous"></script>
+  <script>
+      $('.owl-carousel').owlCarousel({
+          loop: false,
+          margin: 15,
+          nav: false,
+          responsive: {
+              0: {
+                  items: 2
+              },
+
+              700: {
+                  items: 3
+              },
+
+              1000: {
+                  items: 6
+              }
+          }
+      })
+  </script>
+{% endblock %}

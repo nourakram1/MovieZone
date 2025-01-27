@@ -1,0 +1,264 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Index
+{% endblock %}
+
+
+{% block main %}
+
+
+    <section class="section">
+        <div class="text">
+            <h2 style="font-size:60px; font-weight:bold">Welcome.</h2>
+            <h3 style="padding-top: 10px; font-weight:bold; font-size:30px">Millions of movies, people to discover. Explore now.</h3>
+        </div>
+        <div class="search">
+            <form action="/search" method="post">
+            <div class="input-group mb-3">
+
+                    <input type="text" class="form-control form-control-lg" placeholder="Movie name" aria-label="Movie name" aria-describedby="button-addon2" style="border-radius:30px 0px 0px 30px" name="movie_name" autocomplete="off">
+                    <button class="btn btn-light" type="button" id="button-addon2" style="border-radius:0px 30px 30px 0px">search</button>
+
+            </div>
+        </form>
+        </div>
+
+
+        <section style="padding-left:100px; padding-right:100px">
+
+            {% if movies %}
+                <section>
+                    <h1 class="container-fluid my-5" style="margin-top:30px; text-align:left; font-weight:bold; font-size:45px">Trending</h1>
+                    <div class="container-fluid my-5">
+                        <div class="row">
+                            <div class="col-12 m-auto">
+                                <div class="owl-carousel owl-theme">
+
+                                    {%for movie in movies%}
+                                        <div class="item mb-4">
+                                            <div class="col">
+                                                <div class="card h-100 border-0 shadow bg-secondary" style="border-radius: 25px;">
+                                                    <form action="/open" method="post">
+                                                        <input type="hidden" name="movie_id" value="{{movie.id}}">
+                                                        <input type="image" src="https://image.tmdb.org/t/p/w500/{{movie.poster_path}}" alt="{{movie.title}}" class="card-img-top" style="border-radius: 25px 25px 0px 0px;" />
+                                                        <div class="card-body">
+                                                            <div class="card-title text-center">
+                                                                <div>{{movie.title}}</div>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            {% endif %}
+
+
+        </section>
+    </section>
+
+
+        <section style="padding-top:60px; padding-left:100px; padding-right:100px">
+
+
+            {% if movies1 %}
+                <section>
+                    <h1 class="container-fluid my-5" style=" text-align:left; font-weight:bold; font-size:45px">Playing Now</h1>
+                    <div class="container-fluid my-5">
+                        <div class="row">
+                            <div class="col-12 m-auto">
+                                <div class="owl-carousel owl-theme">
+
+                                    {%for movie in movies1%}
+                                        <div class="item mb-4">
+                                            <div class="col">
+                                                <div class="card h-100 border-0 shadow bg-secondary" style="border-radius: 25px;">
+                                                    <form action="/open" method="post">
+                                                        <input type="hidden" name="movie_id" value="{{movie.id}}">
+                                                        <input type="image" src="https://image.tmdb.org/t/p/w500/{{movie.poster_path}}" alt="{{movie.title}}" class="card-img-top" style="border-radius: 25px 25px 0px 0px;" />
+                                                        <div class="card-body">
+                                                            <div class="card-title text-center">
+                                                                <div>{{movie.title}}</div>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            {% endif %}
+
+
+            {% if movies2 %}
+                <section>
+                    <h1 class="container-fluid my-5" style=" text-align:left; font-weight:bold; font-size:45px">Top Rated</h1>
+                    <div class="container-fluid my-5">
+                        <div class="row">
+                            <div class="col-12 m-auto">
+                                <div class="owl-carousel owl-theme">
+
+                                    {%for movie in movies2%}
+                                        <div class="item mb-4">
+                                            <div class="col">
+                                                <div class="card h-100 border-0 shadow bg-secondary" style="border-radius: 25px;">
+                                                    <form action="/open" method="post">
+                                                        <input type="hidden" name="movie_id" value="{{movie.id}}">
+                                                        <input type="image" src="https://image.tmdb.org/t/p/w500/{{movie.poster_path}}" alt="{{movie.title}}" class="card-img-top" style="border-radius: 25px 25px 0px 0px;" />
+                                                        <div class="card-body">
+                                                            <div class="card-title text-center">
+                                                                <div>{{movie.title}}</div>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            {% endif %}
+
+
+            {% if movies3 %}
+                <section>
+                    <h1 class="container-fluid my-5" style=" text-align:left; font-weight:bold; font-size:45px">Upcoming</h1>
+                    <div class="container-fluid my-5">
+                        <div class="row">
+                            <div class="col-12 m-auto">
+                                <div class="owl-carousel owl-theme">
+
+                                    {%for movie in movies3%}
+                                        <div class="item mb-4">
+                                            <div class="col">
+                                                <div class="card h-100 border-0 shadow bg-secondary" style="border-radius: 25px;">
+                                                    <form action="/open" method="post">
+                                                        <input type="hidden" name="movie_id" value="{{movie.id}}">
+                                                        <input type="image" src="https://image.tmdb.org/t/p/w500/{{movie.poster_path}}" alt="{{movie.title}}" class="card-img-top" style="border-radius: 25px 25px 0px 0px;" />
+                                                        <div class="card-body">
+                                                            <div class="card-title text-center">
+                                                                <div>{{movie.title}}</div>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            {% endif %}
+
+
+
+            {% if movies4 %}
+                <section>
+                    <h1 class="container-fluid my-5" style=" text-align:left; font-weight:bold; font-size:45px">Popular</h1>
+                    <div class="container-fluid my-5">
+                        <div class="row">
+                            <div class="col-12 m-auto">
+                                <div class="owl-carousel owl-theme">
+
+                                    {%for movie in movies4%}
+                                        <div class="item mb-4">
+                                            <div class="col">
+                                                <div class="card h-100 border-0 shadow bg-secondary" style="border-radius: 25px;">
+                                                    <form action="/open" method="post">
+                                                        <input type="hidden" name="movie_id" value="{{movie.id}}">
+                                                        <input type="image" src="https://image.tmdb.org/t/p/w500/{{movie.poster_path}}" alt="{{movie.title}}" class="card-img-top" style="border-radius: 25px 25px 0px 0px;" />
+                                                        <div class="card-body">
+                                                            <div class="card-title text-center">
+                                                                <div>{{movie.title}}</div>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            {% endif %}
+        </section>
+
+
+
+
+        <style>
+            .section {
+                background:linear-gradient(to bottom, rgba(0, 0, 0, 0) 20%, rgba(0, 0, 0, 1)),
+                url("https://image.tmdb.org/t/p/original/{{ rand.backdrop_path }}");
+                background-repeat: no-repeat;
+                background-attachment: scroll;
+                background-size: cover;
+                background-position: center;
+                width: 100%;
+                height: 1000px;
+
+            }
+
+            .search {
+                position: center;
+                padding-top: 100px;
+                padding-left: 300px;
+                padding-right: 300px;
+                border-radius: 15px
+            }
+
+            .text {
+                padding-top: 150px;
+                color: white;
+                text-align: left;
+                padding-left: 300px;
+                padding-right: 300px;
+                font-weight: bold
+            }
+        </style>
+
+
+
+    <script src="/static/js/bootstrap.js"></script>
+    <script src="/static/js/myjava.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js" integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw==" crossorigin="anonymous"></script>
+    <script>
+        $('.owl-carousel').owlCarousel({
+            loop: false,
+            margin: 15,
+            nav: false,
+            responsive: {
+                0: {
+                    items: 1
+                },
+
+                700: {
+                    items: 3
+                },
+
+                1000: {
+                    items: 6
+                }
+            }
+        })
+    </script>
+{% endblock %}
+

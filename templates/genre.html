@@ -1,0 +1,52 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    {{genre_name}}
+{% endblock %}
+
+
+
+{% block main %}
+<section style="padding-left:500px; padding-right:500px;">
+
+
+
+  {% if movies %}
+      <section>
+          <h1 class="container-fluid my-5" style="margin-top:30px; text-align:left; font-weight:bold; font-size:45px">{{genre_name}} Movies</h1>
+          <div class="container-fluid my-5">
+              {%for movie in movies%}
+                  <div class="card bg-dark  h-100 border-0 mb-3" style="width: 100%; border-radius: 25px; " >
+                      <div class="row g-0">
+                          <div class="col-md-4">
+                              <form action="/open" method="post">
+                                  <input type="image" src="https://image.tmdb.org/t/p/w500/{{movie.poster_path}}" alt="{{movie.title}}" class="card-img-top" style="border-radius: 25px 0px 25px 0px; " />
+                                  <input type="hidden" name="movie_id" value="{{movie.id}}">
+                              </form>
+                              <div style="font-size:18px; text-align:center; padding:14px; color:white">
+                                  ⭐{{ movie.vote_average }}, {{ movie.vote_count }} votes
+                              </div>
+                          </div>
+                          <div class="col-md-8">
+                              <div class="card-body">
+                                <h5 class="card-title" style="text-align:left; font-weight:bold">
+                                  {{ movie.title }}
+                              </h5>
+                                  <p class="card-text" style="text-align:left">{{ movie.overview }}</p>
+                                  <p class="card-text" style="text-align:left">
+                                    <small class="text-muted">
+                                      {{ movie.release_date }}
+                                    </small></p>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              {% endfor %}
+          </div>
+      </section>
+  {% endif %}
+
+
+
+</section>
+{% endblock %}
