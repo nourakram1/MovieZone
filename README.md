@@ -15,11 +15,6 @@
 4. [Project Structure](#project-structure)
 5. [Movie Page Details](#movie-page-details)
 6. [History Page Details](#history-page-details)
-7. [Installation Instructions](#installation-instructions)
-8. [Usage](#usage)
-9. [Contributing](#contributing)
-10. [License](#license)
-11. [Contact](#contact)
 
 ---
 
