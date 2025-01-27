@@ -1,4 +1,5 @@
 # Moviezone
+![Main Page](MainPage.png)
 
 **Moviezone** is a dynamic web application built using Flask, integrated with TMDB's API to provide detailed and real-time movie data. Users can explore, search, and interact with a wide variety of movie details such as posters, trailers, cast, reviews, and more. The app also features user accounts to manage movie favourites, watchlists, and viewing history.
 
